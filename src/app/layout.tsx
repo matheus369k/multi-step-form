@@ -32,11 +32,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ubuntuRegular.variable} ${ubuntuMedium.variable} ${ubuntuBold.variable} antialiased bg-slate-200 flex justify-center items-center w-full h-screen`}>
-        <div className="w-full flex bg-zinc-50 h-[540px] max-w-4xl p-4 font-[family-name:var(--font-Ubuntu-Regular)] rounded-2xl shadow">
+        className={`${ubuntuRegular.variable} ${ubuntuMedium.variable} ${ubuntuBold.variable} antialiased bg-slate-200 flex justify-center items-center h-dvh`}>
+        <main className="w-full flex bg-zinc-50 h-[540px] max-w-4xl p-4 font-[family-name:var(--font-Ubuntu-Regular)] rounded-2xl shadow">
           <UserSteps />
-          {children}
-        </div>
+          <div className="w-full max-h-[430px] max-w-[450px] mx-auto pt-12 pb-6 text-blue-950">
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   );

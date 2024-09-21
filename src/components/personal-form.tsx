@@ -1,16 +1,35 @@
-export function UserForm() {
-  return (
-    <div className="max-w-[400] mx-auto pt-12 pb-6 text-blue-950">
-      <div className=" pb-8">
-        <h2 className="font-[family-name:var(--font-Ubuntu-Bold)] text-3xl">
-          Personal info
-        </h2>
-        <p className="text-zinc-400">
-          Please provide your name, email address, and phone number.
-        </p>
-      </div>
+"use client";
 
-      <form className="flex flex-col gap-4">
+import { useRouter } from "next/navigation";
+import { Button } from "./button";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schemaPersonalForm = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  phoneNumber: z.coerce.string().min(7),
+});
+
+type PersonalForm = z.infer<typeof schemaPersonalForm>;
+
+export function UserForm() {
+  const router = useRouter();
+  const { register, handleSubmit } = useForm<PersonalForm>({
+    resolver: zodResolver(schemaPersonalForm),
+  });
+
+  function handleSubmitPersonalForm(data: PersonalForm) {
+    console.log(data);
+    router.push("/select-plan");
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit(handleSubmitPersonalForm)}
+      className="flex flex-col justify-between h-full">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <label
             className="font-[family-name:var(--font-Ubuntu-Medium)] text-sm"
@@ -18,6 +37,7 @@ export function UserForm() {
             Name
           </label>
           <input
+            {...register("name")}
             className="border border-zinc-300 rounded-lg px-4 py-2.5 leading-normal"
             type="text"
             name="name"
@@ -32,6 +52,7 @@ export function UserForm() {
             Email Address
           </label>
           <input
+            {...register("email")}
             className="border border-zinc-300 rounded-lg px-4 py-2.5 leading-normal"
             type="email"
             name="email"
@@ -42,23 +63,25 @@ export function UserForm() {
         <div className="flex flex-col gap-1">
           <label
             className="font-[family-name:var(--font-Ubuntu-Medium)] text-sm"
-            htmlFor="phone">
+            htmlFor="phoneNumber">
             Phone Number
           </label>
           <input
+            {...register("phoneNumber")}
             className="border border-zinc-300 rounded-lg px-4 py-2.5 leading-normal"
-            type="tel"
-            name="phone"
-            id="phone"
+            type="text"
+            name="phoneNumber"
+            id="phoneNumber"
             placeholder="e.g. +1 234 567 890"
           />
         </div>
-        <input
-          type="submit"
-          value="Next Step"
-          className="inline max-w-max py-2.5 px-5 rounded-lg ml-auto bg-blue-950 text-zinc-50 font-[family-name:var(--font-Ubuntu-Bold)] capitalize mt-14"
-        />
-      </form>
-    </div>
+      </div>
+
+      <Button
+        type="submit"
+        className="font-[family-name:var(--font-Ubuntu-Bold)] capitalize ml-auto bg-blue-950 text-zinc-50">
+        Next Step
+      </Button>
+    </form>
   );
 }
