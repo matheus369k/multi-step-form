@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
 import { usePathname } from "next/navigation";
-import { Row } from "./row";
+import { Row } from "./row-of-step";
 
-export function UserSteps() {
+export function ListOfSteps() {
   const pathName = usePathname();
 
   return (
@@ -26,7 +26,9 @@ export function UserSteps() {
       <Row
         description="Summary"
         pass="4"
-        {...(pathName === "/summary" && { active: true })}
+        {...((pathName === "/summary" || pathName === "/complete") && {
+          active: true,
+        })}
       />
     </ul>
   );

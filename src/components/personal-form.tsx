@@ -1,10 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Button } from "./button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { StepNextBack } from "./step-next-back";
 
 const schemaPersonalForm = z.object({
   name: z.string().min(1),
@@ -15,14 +14,12 @@ const schemaPersonalForm = z.object({
 type PersonalForm = z.infer<typeof schemaPersonalForm>;
 
 export function UserForm() {
-  const router = useRouter();
   const { register, handleSubmit } = useForm<PersonalForm>({
     resolver: zodResolver(schemaPersonalForm),
   });
 
   function handleSubmitPersonalForm(data: PersonalForm) {
     console.log(data);
-    router.push("/select-plan");
   }
 
   return (
@@ -77,11 +74,7 @@ export function UserForm() {
         </div>
       </div>
 
-      <Button
-        type="submit"
-        className="font-[family-name:var(--font-Ubuntu-Bold)] capitalize ml-auto bg-blue-950 text-zinc-50">
-        Next Step
-      </Button>
+      <StepNextBack next="/select-plan" />
     </form>
   );
 }
