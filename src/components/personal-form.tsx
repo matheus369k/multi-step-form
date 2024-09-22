@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { StepNextBack } from "./step-next-back";
+import { useAppDispatch } from "@/hooks";
+import { ActionType } from "@/redux/user/action-type";
 
 const schemaPersonalForm = z.object({
   name: z.string().min(1),
@@ -14,12 +16,13 @@ const schemaPersonalForm = z.object({
 type PersonalForm = z.infer<typeof schemaPersonalForm>;
 
 export function UserForm() {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<PersonalForm>({
     resolver: zodResolver(schemaPersonalForm),
   });
 
   function handleSubmitPersonalForm(data: PersonalForm) {
-    console.log(data);
+    dispatch({ type: ActionType.REGISTER, payload: data });
   }
 
   return (
