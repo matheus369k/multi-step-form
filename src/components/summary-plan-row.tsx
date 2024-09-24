@@ -1,17 +1,17 @@
 interface SummaryPlanRowProps {
-  plan: string;
+  title: string;
   price: number;
-  time: "mo" | "yr";
+  duration: "mo" | "yr";
 }
 
-export function SummaryPlanRow({ plan, price, time }: SummaryPlanRowProps) {
+export function SummaryPlanRow({ title, price, duration }: SummaryPlanRowProps) {
   return (
     <li className="flex justify-between">
       <h3 className="text-xs font-[family-name:var(--font-Ubuntu-Medium)] text-zinc-500">
-        {plan}
+        {title}
       </h3>
       <span className="text-xs font-[family-name:var(--font-Ubuntu-Medium)] text-blue-950">
-        +${price}/{time}
+        +${price}/{duration}
       </span>
     </li>
   );

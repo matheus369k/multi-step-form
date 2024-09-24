@@ -4,8 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { StepNextBack } from "./step-next-back";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionType } from "@/redux/user/action-type";
+import { useEffect } from "react";
 
 const schemaPersonalForm = z.object({
   name: z.string().min(1),
@@ -17,13 +18,31 @@ type PersonalForm = z.infer<typeof schemaPersonalForm>;
 
 export function UserForm() {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<PersonalForm>({
+  const { user } = useAppSelector((state) => state.userReducer);
+  const { register, handleSubmit, setValue } = useForm<PersonalForm>({
     resolver: zodResolver(schemaPersonalForm),
   });
 
   function handleSubmitPersonalForm(data: PersonalForm) {
     dispatch({ type: ActionType.REGISTER_USER, payload: data });
   }
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const datasUser = Object.entries(user);
+
+    for (const list of datasUser) {
+      const { userKey, userValue } = {
+        userKey: list[0],
+        userValue: list[1],
+      };
+
+      setValue(userKey as "name" | "email" | "phoneNumber", userValue);
+    }
+  }, []);
 
   return (
     <form

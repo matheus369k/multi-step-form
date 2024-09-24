@@ -23,7 +23,6 @@ const initialState: TInitialValue = {
 }
 
 export const planReducer = (state = initialState, action: TAction) => {
-    console.log(action.payload);
     switch (action.type) {
         case ActionType.REGISTER_PLAN:
             return {

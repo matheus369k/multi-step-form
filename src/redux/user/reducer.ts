@@ -18,7 +18,6 @@ const initialState: { user: TUser | null } = {
 export const userReducer = (state = initialState, action: TAction) => {
   switch (action.type) {
     case ActionType.REGISTER_USER:
-      console.log(action.payload);
       return {
         ...state,
         user: action.payload,
