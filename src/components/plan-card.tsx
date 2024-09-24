@@ -21,8 +21,10 @@ export function PlanCard({
   return (
     <div
       onClick={() => handleSelectedOfPlan({ rank, price })}
-      className={`relative flex-1 p-4 flex flex-col gap-10 outline outline-1 rounded-lg ${
-        selector.rank === rank ? "outline-blue-900" : "outline-zinc-300"
+      className={`relative flex-1 p-4 flex flex-col gap-10 outline outline-1 rounded-lg transition-all ${
+        selector.rank === rank
+          ? "outline-blue-900 bg-slate-100"
+          : "cursor-pointer outline-zinc-300 hover:outline-blue-900"
       }`}>
       {rank === "Arcade" && <PlanIconArcade />}
       {rank === "Advanced" && <PlanIconAdvanced />}

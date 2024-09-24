@@ -34,7 +34,7 @@ export function SummaryDetails() {
             <h3 className="text-blue-950 font-[family-name:var(--font-Ubuntu-Bold)]">
               {rank} ({durationFormatted[0]})
             </h3>
-            <span className="text-xs font-[family-name:var(--font-Ubuntu-Medium)] text-zinc-500 underline">
+            <span className="text-xs font-[family-name:var(--font-Ubuntu-Medium)] text-zinc-500 underline cursor-pointer transition-colors hover:text-blue-900">
               Change
             </span>
           </div>

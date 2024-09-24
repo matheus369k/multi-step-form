@@ -1,17 +1,22 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { StepNextBack } from "./step-next-back";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionType } from "@/redux/user/action-type";
 import { useEffect } from "react";
+import { Label } from "./label";
+import { Input } from "./input";
 
 const schemaPersonalForm = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  phoneNumber: z.coerce.string().min(7),
+  name: z.string().min(1, "This field is required"),
+  email: z
+    .string()
+    .min(1, "This field is required")
+    .email("This E-mail is invalid"),
+  phoneNumber: z.coerce.string().min(7, "This field is required"),
 });
 
 type PersonalForm = z.infer<typeof schemaPersonalForm>;
@@ -19,9 +24,14 @@ type PersonalForm = z.infer<typeof schemaPersonalForm>;
 export function UserForm() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.userReducer);
-  const { register, handleSubmit, setValue } = useForm<PersonalForm>({
+  const hookUseForm = useForm<PersonalForm>({
     resolver: zodResolver(schemaPersonalForm),
   });
+  const {
+    handleSubmit,
+    setValue,
+    formState: { errors, isSubmitSuccessful },
+  } = hookUseForm;
 
   function handleSubmitPersonalForm(data: PersonalForm) {
     dispatch({ type: ActionType.REGISTER_USER, payload: data });
@@ -49,54 +59,59 @@ export function UserForm() {
       onSubmit={handleSubmit(handleSubmitPersonalForm)}
       className="flex flex-col justify-between h-full">
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <label
-            className="font-[family-name:var(--font-Ubuntu-Medium)] text-sm"
-            htmlFor="name">
-            Name
-          </label>
-          <input
-            {...register("name")}
-            className="border border-zinc-300 rounded-lg px-4 py-2.5 leading-normal"
-            type="text"
-            name="name"
-            id="name"
-            placeholder=" e.g. Stephen King"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label
-            className="font-[family-name:var(--font-Ubuntu-Medium)] text-sm"
-            htmlFor="email">
-            Email Address
-          </label>
-          <input
-            {...register("email")}
-            className="border border-zinc-300 rounded-lg px-4 py-2.5 leading-normal"
-            type="email"
-            name="email"
-            id="email"
-            placeholder=" e.g. stephenking@lorem.com"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label
-            className="font-[family-name:var(--font-Ubuntu-Medium)] text-sm"
-            htmlFor="phoneNumber">
-            Phone Number
-          </label>
-          <input
-            {...register("phoneNumber")}
-            className="border border-zinc-300 rounded-lg px-4 py-2.5 leading-normal"
-            type="text"
-            name="phoneNumber"
-            id="phoneNumber"
-            placeholder="e.g. +1 234 567 890"
-          />
-        </div>
+        <FormProvider {...hookUseForm}>
+          <div className="flex flex-col gap-1">
+            <Label
+              {...(errors.name && {
+                hasError: true,
+                errorMessage: errors.name.message,
+              })}
+              text="Name"
+              fieldName="name"
+            />
+            <Input
+              {...(errors.email && { hasError: true })}
+              type="text"
+              fieldName="name"
+              placeholder=" e.g. Stephen King"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <Label
+              {...(errors.email && {
+                hasError: true,
+                errorMessage: errors.email.message,
+              })}
+              text="Email Address"
+              fieldName="email"
+            />
+            <Input
+              {...(errors.email && { hasError: true })}
+              type="email"
+              fieldName="email"
+              placeholder="e.g. stephenking@lorem.com"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <Label
+              {...(errors.phoneNumber && {
+                hasError: true,
+                errorMessage: errors.phoneNumber.message,
+              })}
+              text="Phone Number"
+              fieldName="phoneNumber"
+            />
+            <Input
+              {...(errors.email && { hasError: true })}
+              type="text"
+              fieldName="phoneNumber"
+              placeholder="e.g. +1 234 567 890"
+            />
+          </div>
+        </FormProvider>
       </div>
 
-      <StepNextBack next="/select-plan" />
+      <StepNextBack isSuccess={isSubmitSuccessful} next="/select-plan" />
     </form>
   );
 }

@@ -7,19 +7,21 @@ import Link from "next/link";
 interface StepNextBackProps {
   next: string;
   back?: string;
-  textNextButton?: string; 
+  isSuccess?: boolean;
+  textNextButton?: string;
 }
 
 export function StepNextBack({
   next,
   back = "",
   textNextButton = "Next Step",
+  isSuccess = false,
 }: StepNextBackProps) {
   const path = usePathname();
   const router = useRouter();
 
   function handleNext() {
-    router.push(next);
+    if (isSuccess) router.push(next);
   }
 
   return (
@@ -35,7 +37,7 @@ export function StepNextBack({
       <Button
         onClick={handleNext}
         type={path === "/" ? "submit" : "button"}
-        className="ml-auto bg-blue-950 text-zinc-50">
+        className="ml-auto bg-blue-950 text-zinc-50 hover:opacity-50 transition-opacity">
         {textNextButton}
       </Button>
     </div>

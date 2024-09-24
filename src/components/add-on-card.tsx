@@ -57,8 +57,10 @@ export function AddOnCard({
   return (
     <div
       onClick={handleClickToggleOns}
-      className={`relative rounded-lg flex items-center gap-4 p-4 outline outline-1 ${
-        storageContainOns ? "outline-blue-900 bg-slate-50" : "outline-zinc-300"
+      className={`relative rounded-lg flex items-center gap-4 p-4 outline outline-1 cursor-pointer transition-all ${
+        storageContainOns
+          ? "outline-blue-900 bg-slate-50"
+          : "outline-zinc-300 hover:outline-blue-900"
       }`}>
       <div
         className={`size-5 rounded-sm outline outline-1 flex justify-center items-center ${

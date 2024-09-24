@@ -36,8 +36,7 @@ export function PlanForm() {
   }
 
   return (
-    <form
-      className="h-full flex flex-col justify-between">
+    <form className="h-full flex flex-col justify-between">
       <div className="flex flex-col gap-8">
         <div className="flex gap-4">
           {plans.map((plan) => {
@@ -53,23 +52,23 @@ export function PlanForm() {
           })}
         </div>
 
-        <div className="flex items-center gap-5 w-max mx-auto">
+        <div
+          onClick={handleToggleDuration}
+          className="flex items-center gap-5 w-max mx-auto cursor-pointer select-none">
           <span
-            className={`text-xs text-blue-950 font-[family-name:var(--font-Ubuntu-Bold)] capitalize ${
+            className={`text-xs font-[family-name:var(--font-Ubuntu-Bold)] capitalize transition-colors ${
               selector.duration === "yr" ? "text-zinc-400" : "text-blue-950"
             }`}>
             Monthly
           </span>
-          <div
-            onClick={handleToggleDuration}
-            className="p-0.5 flex items-center w-8 h-4 border border-zinc-900 rounded-full bg-blue-950">
+          <div className="p-0.5 flex items-center w-8 h-4 border border-zinc-900 rounded-full bg-blue-950">
             <div
-              className={`size-3 rounded-full bg-zinc-50 ${
+              className={`size-3 rounded-full bg-zinc-50 transition-all ${
                 selector.duration === "mo" ? "" : "ml-auto"
               }`}></div>
           </div>
           <span
-            className={`text-xs  font-[family-name:var(--font-Ubuntu-Bold)] capitalize ${
+            className={`text-xs font-[family-name:var(--font-Ubuntu-Bold)] capitalize transition-colors ${
               selector.duration === "mo" ? "text-zinc-400" : "text-blue-950"
             }`}>
             Yearly
