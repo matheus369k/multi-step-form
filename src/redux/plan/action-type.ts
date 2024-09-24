@@ -1,4 +1,4 @@
 export const ActionType = {
-    REGISTER: "plan/add",
-    TOGGLE: "toggle/duration",
+    REGISTER_PLAN: "plan/add",
+    TOGGLE_DURATION: "toggle/duration",
 }

@@ -22,7 +22,7 @@ export function UserForm() {
   });
 
   function handleSubmitPersonalForm(data: PersonalForm) {
-    dispatch({ type: ActionType.REGISTER, payload: data });
+    dispatch({ type: ActionType.REGISTER_USER, payload: data });
   }
 
   return (

@@ -1,3 +1,3 @@
 export const ActionType = {
-    REGISTER: "user/register",
+    REGISTER_USER: "user/register",
 }

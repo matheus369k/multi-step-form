@@ -25,13 +25,13 @@ const initialState: TInitialValue = {
 export const planReducer = (state = initialState, action: TAction) => {
     console.log(action.payload);
     switch (action.type) {
-        case ActionType.REGISTER:
+        case ActionType.REGISTER_PLAN:
             return {
                 ...state,
                 rank: (action.payload as TPlan).rank,
                 price: (action.payload as TPlan).price
             }
-        case ActionType.TOGGLE:
+        case ActionType.TOGGLE_DURATION:
             if (!state.price) {
                 return state;
             }

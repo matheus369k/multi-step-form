@@ -23,14 +23,14 @@ export function PlanForm() {
     const ToggleDuration: unknown = selector.duration === "mo" ? "yr" : "mo";
 
     dispatch({
-      type: ActionType.TOGGLE,
+      type: ActionType.TOGGLE_DURATION,
       payload: { duration: ToggleDuration } as TDuration,
     });
   }
 
   function handleSelectedOfPlan({ rank, price }: TPlan) {
     dispatch({
-      type: ActionType.REGISTER,
+      type: ActionType.REGISTER_PLAN,
       payload: { rank, price },
     });
   }
