@@ -36,9 +36,9 @@ export function PlanForm() {
   }
 
   return (
-    <form className="h-full flex flex-col justify-between">
-      <div className="flex flex-col gap-8">
-        <div className="flex gap-4">
+    <form className="h-full flex flex-col justify-between bg-slate-200 lg:bg-zinc-50 gap-8">
+      <div className="flex flex-col gap-8 bg-zinc-50 pb-8 lg:pb-0">
+        <div className="flex flex-col lg:flex-row gap-4 ">
           {plans.map((plan) => {
             return (
               <PlanCard

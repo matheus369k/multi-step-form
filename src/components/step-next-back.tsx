@@ -7,7 +7,6 @@ import Link from "next/link";
 interface StepNextBackProps {
   next: string;
   back?: string;
-  isSuccess?: boolean;
   textNextButton?: string;
 }
 
@@ -15,17 +14,17 @@ export function StepNextBack({
   next,
   back = "",
   textNextButton = "Next Step",
-  isSuccess = false,
 }: StepNextBackProps) {
   const path = usePathname();
   const router = useRouter();
 
   function handleNext() {
-    if (isSuccess) router.push(next);
+    router.push(next);
   }
 
   return (
-    <div className="w-full font-[family-name:var(--font-Ubuntu-Bold)] capitalize flex items-center justify-between place-items-end">
+    <div className="w-full font-[family-name:var(--font-Ubuntu-Bold)] capitalize flex items-center justify-between place-items-end rounded-lg bg-zinc-50 py-4 px-4 sm:px-8 lg:p-0 absolute bottom-0
+     left-1/2 -translate-x-1/2 lg:relative max-w-[620px] lg:max-w-none">
       {path !== "/" && (
         <Link href={back}>
           <Button type="button" className="text-zinc-400">

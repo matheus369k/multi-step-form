@@ -13,7 +13,7 @@ export function Input({ hasError, fieldName, ...props}: InputProps) {
       <input
         {...props}
         {...register(fieldName)}
-        className={`outline outline-1 rounded-lg px-4 py-2.5 leading-normal focus:outline-blue-900 ${
+        className={`outline outline-1 rounded-lg px-4 py-2.5 leading-normal focus:outline-blue-900 text-zinc-400 focus:text-blue-950 ${
           hasError ? "outline-red-500" : "outline-zinc-300"
         }`}
         name={fieldName}

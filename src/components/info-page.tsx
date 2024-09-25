@@ -5,7 +5,7 @@ interface InfoPageProps {
 
 export function InfoPage({description, title}: InfoPageProps) {
     return (
-      <div className="pb-8">
+      <div className="mt-8">
         <h2 className="font-[family-name:var(--font-Ubuntu-Bold)] text-3xl">
           {title}
         </h2>

@@ -9,6 +9,7 @@ import { ActionType } from "@/redux/user/action-type";
 import { useEffect } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
+import { useRouter } from "next/navigation";
 
 const schemaPersonalForm = z.object({
   name: z.string().min(1, "This field is required"),
@@ -22,6 +23,7 @@ const schemaPersonalForm = z.object({
 type PersonalForm = z.infer<typeof schemaPersonalForm>;
 
 export function UserForm() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.userReducer);
   const hookUseForm = useForm<PersonalForm>({
@@ -30,11 +32,12 @@ export function UserForm() {
   const {
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = hookUseForm;
 
   function handleSubmitPersonalForm(data: PersonalForm) {
     dispatch({ type: ActionType.REGISTER_USER, payload: data });
+    router.push("/select-plan");
   }
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export function UserForm() {
   return (
     <form
       onSubmit={handleSubmit(handleSubmitPersonalForm)}
-      className="flex flex-col justify-between h-full">
+      className="flex flex-col justify-between h-full mb-8 lg:m-0">
       <div className="flex flex-col gap-4">
         <FormProvider {...hookUseForm}>
           <div className="flex flex-col gap-1">
@@ -111,7 +114,7 @@ export function UserForm() {
         </FormProvider>
       </div>
 
-      <StepNextBack isSuccess={isSubmitSuccessful} next="/select-plan" />
+      <StepNextBack next="/" />
     </form>
   );
 }

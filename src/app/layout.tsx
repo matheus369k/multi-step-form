@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ubuntuRegular.variable} ${ubuntuMedium.variable} ${ubuntuBold.variable} antialiased bg-slate-200 flex justify-center items-center h-screen tracking-tight`}>
+        className={`${ubuntuRegular.variable} ${ubuntuMedium.variable} ${ubuntuBold.variable} antialiased bg-slate-200 flex justify-center lg:items-center h-dvh tracking-tight`}>
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
