@@ -45,18 +45,24 @@ export function SummaryDetails() {
 
         <div className="bg-zinc-200 h-px w-full" />
 
-        <ul className="flex flex-col gap-2.5">
-          {listOfAddOns.map((addOns) => {
-            return (
-              <SummaryPlanRow
-                key={addOns.title}
-                title={addOns.title}
-                price={addOns.price}
-                duration={addOns.duration}
-              />
-            );
-          })}
-        </ul>
+        {listOfAddOns.length > 0 ? (
+          <ul className="flex flex-col gap-2.5">
+            {listOfAddOns.map((addOns) => {
+              return (
+                <SummaryPlanRow
+                  key={addOns.title}
+                  title={addOns.title}
+                  price={addOns.price}
+                  duration={addOns.duration}
+                />
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="text-center text-zinc-400 text-xs">
+            Empty
+          </p>
+        )}
       </div>
 
       <div className="flex justify-between p-4">
